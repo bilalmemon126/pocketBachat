@@ -8,16 +8,16 @@ const Sidebar = () => {
       <h1 className="text-2xl font-bold text-green-600">Money Saver</h1>
 
       <nav className="space-y-3">
-        <NavLink to={"/"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+        <NavLink to={"/dashboard"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
           <LayoutDashboard size={18} /> Dashboard
         </NavLink>
-        <NavLink to={"/typemanually"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+        <NavLink to={"/dashboard/typemanually"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
           <ClipboardType size={18} /> Type Manually
         </NavLink>
-        <NavLink to={"/uploadbill"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+        <NavLink to={"/dashboard/uploadbill"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
           <Upload size={18} /> Upload Bill
         </NavLink>
-        <NavLink to={"/analytics"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+        <NavLink to={"/dashboard/analytics"} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
           <BarChart size={18} /> Analytics
         </NavLink>
       </nav>

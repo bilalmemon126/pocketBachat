@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3003'
 
 export const analyzeBill = createAsyncThunk('analyzeBill', async (data, { rejectWithValue }) => {
     try {
-        const response = await fetch(`http://localhost:3003/analyze`, {
+        const response = await fetch(`${backendUrl}/analyze`, {
             method: "POST",
             body: data,
             credentials: "include"
