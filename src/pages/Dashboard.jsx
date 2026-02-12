@@ -2,6 +2,7 @@ import StatCard from "../components/ui/StatCard"
 import MonthlyCostChart from "../components/charts/MonthlyCostChart"
 
 const Dashboard = () => {
+  
   return (
     <div className="grid gap-6">
       <div className="grid grid-cols-3 gap-6">
