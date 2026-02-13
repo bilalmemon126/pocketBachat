@@ -44,7 +44,7 @@ const BillUpload = ({ type }) => {
         !input.extraCharges ||
         !input.billMonth
       ) {
-        return alert("All manual fields and bill month are required");
+        return alert("All manual fields are required");
       }
 
       formData.append("units", input.units);

@@ -7,6 +7,7 @@ import HomeLayout from './layout/HomeLayout'
 import Login from './pages/Login'
 import OtpVerification from './pages/OtpVerification'
 import Signup from './pages/Signup'
+import ProtectedRoute from './ProtectedRoute'
 
 function App() {
   const router = createBrowserRouter([
@@ -28,7 +29,7 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <AppLayout />,
+      element: <ProtectedRoute children={<AppLayout />} />,
       children: [
         {
           path: "/dashboard",

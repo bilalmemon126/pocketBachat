@@ -1,6 +1,7 @@
 // src/components/HowItWorks.jsx
 import React from "react"
 import { FaUpload, FaBrain, FaChartBar, FaLightbulb } from "react-icons/fa"
+import { NavLink } from "react-router-dom"
 
 const steps = [
   {
@@ -125,12 +126,12 @@ const HowItWorks = () => {
             <p className="text-lg text-slate-700 font-medium">
               Ready to start saving on your utility bills?
             </p>
-            <button className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105">
+            <NavLink to={"/dashboard"} className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105">
               <span>Try It Now</span>
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-            </button>
+            </NavLink>
             <p className="text-sm text-slate-500">No credit card required • Free forever</p>
           </div>
         </div>

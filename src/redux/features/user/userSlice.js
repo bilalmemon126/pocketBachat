@@ -18,7 +18,7 @@ export const userSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload;
                 localStorage.setItem("userId", action.payload.data._id)
-                localStorage.setItem("firstName", action.payload.data.firstName)
+                localStorage.setItem("fullName", action.payload.data.fullName)
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload;
                 localStorage.setItem("userId", action.payload.data._id)
-                localStorage.setItem("firstName", action.payload.data.firstName)
+                localStorage.setItem("fullName", action.payload.data.fullName)
             })
             .addCase(otpVerification.rejected, (state, action) => {
                 state.loading = false;
@@ -47,7 +47,7 @@ export const userSlice = createSlice({
                 state.user = action.payload;
                 console.log(action.payload)
                 localStorage.setItem("userId", action.payload.data._id)
-                localStorage.setItem("firstName", action.payload.data.firstName)
+                localStorage.setItem("fullName", action.payload.data.fullName)
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;

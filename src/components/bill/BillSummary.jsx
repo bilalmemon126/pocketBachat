@@ -28,7 +28,7 @@ const BillSummary = () => {
   // Redirect to URL after adding a new bill
   useEffect(() => {
     if (summaryResponse?.insertedId) {
-      navigate(`/${type}/${summaryResponse.insertedId}`);
+      navigate(`/dashboard/${type}/${summaryResponse.insertedId}`);
     }
   }, [summaryResponse, navigate]);
 

@@ -1,13 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import {createQueryParams} from "../../../utils/createQueryParams"
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3003'
 
 // Add Bill Summary
 export const addBillSummary = createAsyncThunk(
-  "billSummary/addBillSummary",
+  "addBillSummary",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${backendUrl}/billsummary`, {
+      const response = await fetch(`${backendUrl}/billsummary/${localStorage.getItem("userId")}`, {
         method: "POST",
         body: data,
         credentials: "include",
@@ -28,17 +29,16 @@ export const addBillSummary = createAsyncThunk(
 
 // Get All Bill Summaries
 export const getBillSummary = createAsyncThunk(
-    "billSummary/getBillSummary",
+    "getBillSummary",
     async (filters = {}, { rejectWithValue }) => {
       try {
-        // Generate query string from filters
         const queryString = createQueryParams(filters);
   
-        const url = queryString
-          ? `${backendUrl}/billsummary?${queryString}`
-          : `${backendUrl}/billsummary`;
+        // const url = queryString
+        //   ? `${backendUrl}/billsummary?${queryString}`
+        //   : `${backendUrl}/billsummary`;
   
-        const response = await fetch(url, {
+        const response = await fetch(`/billsummary/${localStorage.getItem("userId")}`, {
           method: "GET",
           credentials: "include",
         });
