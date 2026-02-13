@@ -1,10 +1,19 @@
-const StatCard = ({ title, value }) => {
-    return (
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <p className="text-sm text-gray-500">{title}</p>
-            <h2 className="text-2xl font-bold mt-1">{value}</h2>
-        </div>
-    )
-}
+import React from 'react';
 
-export default StatCard  
+const StatCard = ({ title, value }) => {
+  return (
+    <div className="group relative bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+
+      <h3 className="text-sm font-medium text-slate-600 mb-1">
+        {title}
+      </h3>
+      <div className="flex items-baseline gap-2">
+        <span className="text-3xl font-bold text-slate-900">
+          {value}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default StatCard;

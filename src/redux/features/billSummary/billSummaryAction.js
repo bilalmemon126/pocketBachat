@@ -34,11 +34,11 @@ export const getBillSummary = createAsyncThunk(
       try {
         const queryString = createQueryParams(filters);
   
-        // const url = queryString
-        //   ? `${backendUrl}/billsummary?${queryString}`
-        //   : `${backendUrl}/billsummary`;
+        const url = queryString
+          ? `${backendUrl}/billsummary?${queryString}`
+          : `${backendUrl}/billsummary`;
   
-        const response = await fetch(`/billsummary/${localStorage.getItem("userId")}`, {
+        const response = await fetch(`${url}/${localStorage.getItem("userId")}`, {
           method: "GET",
           credentials: "include",
         });
