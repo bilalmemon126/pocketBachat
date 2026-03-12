@@ -8,6 +8,11 @@ import Login from './pages/Login'
 import OtpVerification from './pages/OtpVerification'
 import Signup from './pages/Signup'
 import ProtectedRoute from './ProtectedRoute'
+import BillHistory from './pages/BillHistory'
+import ForgotPassword from './pages/ForgotPassword'
+import ForgotPasswordOtp from './pages/ForgotPasswordOtp'
+import ResetPassword from './pages/ResetPassword'
+import ResetPasswordProtectedRoute from './ResetPasswordProtectedRoute'
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +27,18 @@ function App() {
     {
       path: "/otpverification/:id",
       element: <OtpVerification />
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />
+    },
+    {
+      path: "/forgot-password-otp/:id",
+      element: <ForgotPasswordOtp />
+    },
+    {
+      path: "/reset-password/:id",
+      element: <ResetPasswordProtectedRoute children={<ResetPassword />} />
     },
     {
       path: "/",
@@ -47,6 +64,10 @@ function App() {
           path: "/dashboard/analytics",
           element: <Analytics />
         },
+        {
+          path: "/dashboard/history/:billtype",
+          element: <BillHistory />
+        }
       ]
     }
   ])

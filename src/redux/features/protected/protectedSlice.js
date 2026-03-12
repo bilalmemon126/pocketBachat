@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { protectedRoute } from "./protectedAction";
+import { protectedRoute, resetPasswordProtectedRoute } from "./protectedAction";
 
 export const protectedSlice = createSlice({
     name: "protectedSlice",
@@ -12,19 +12,35 @@ export const protectedSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(protectedRoute.pending, (state) => {
+                state.loading = true
                 state.protected = {}
                 state.error = null
-                state.loading = true
             })
             .addCase(protectedRoute.fulfilled, (state, action) => {
                 state.error = null
-                state.loading = false
                 state.protected = action.payload
+                state.loading = false
             })
             .addCase(protectedRoute.rejected, (state, action) => {
                 state.protected = {}
-                state.loading = false
                 state.error = action.payload
+                state.loading = false
+            })
+
+            .addCase(resetPasswordProtectedRoute.pending, (state) => {
+                state.loading = true
+                state.protected = {}
+                state.error = null
+            })
+            .addCase(resetPasswordProtectedRoute.fulfilled, (state, action) => {
+                state.protected = action.payload
+                state.error = null
+                state.loading = false
+            })
+            .addCase(resetPasswordProtectedRoute.rejected, (state, action) => {
+                state.error = action.payload
+                state.protected = {}
+                state.loading = false
             })
     }
 })

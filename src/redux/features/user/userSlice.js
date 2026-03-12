@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, logoutUser, otpVerification, registerUser } from "./userAction";
+import { forgotPassword, forgotPasswordOtp, loginUser, logoutUser, otpVerification, registerUser, resetPassword } from "./userAction";
 
 export const userSlice = createSlice({
     name: "userSlice",
@@ -18,7 +18,8 @@ export const userSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload;
                 localStorage.setItem("userId", action.payload.data._id)
-                localStorage.setItem("fullName", action.payload.data.fullName)
+                localStorage.setItem("userName", action.payload.data.fullName)
+                localStorage.setItem("userEmail", action.payload.data.email)
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
@@ -32,7 +33,8 @@ export const userSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload;
                 localStorage.setItem("userId", action.payload.data._id)
-                localStorage.setItem("fullName", action.payload.data.fullName)
+                localStorage.setItem("userName", action.payload.data.fullName)
+                localStorage.setItem("userEmail", action.payload.data.email)
             })
             .addCase(otpVerification.rejected, (state, action) => {
                 state.loading = false;
@@ -45,11 +47,48 @@ export const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = action.payload;
-                console.log(action.payload)
                 localStorage.setItem("userId", action.payload.data._id)
-                localStorage.setItem("fullName", action.payload.data.fullName)
+                localStorage.setItem("userName", action.payload.data.fullName)
+                localStorage.setItem("userEmail", action.payload.data.email)
             })
             .addCase(loginUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(forgotPassword.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(forgotPassword.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+                localStorage.setItem("userId", action.payload.userId)
+            })
+            .addCase(forgotPassword.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(forgotPasswordOtp.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(forgotPasswordOtp.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(forgotPasswordOtp.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(resetPassword.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(resetPassword.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(resetPassword.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

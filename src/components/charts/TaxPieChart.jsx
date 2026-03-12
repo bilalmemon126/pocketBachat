@@ -1,5 +1,4 @@
 import { PieChart, Pie, Tooltip } from "recharts"
-import { taxData } from "../../data/dummyData"
 
 const TaxPieChart = ({taxData}) => (
   <PieChart width={300} height={250}>

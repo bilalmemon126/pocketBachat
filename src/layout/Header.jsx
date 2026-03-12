@@ -1,81 +1,120 @@
-import { FaSearch, FaBell, FaUser, FaChevronDown } from "react-icons/fa"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { logoutUser } from "../redux/features/user/userAction"
+import { NavLink, useNavigate } from "react-router-dom"
+import { ChevronDown, LogOut, Menu, User, X } from "lucide-react"
+import logo from '../assets/billyzer logo.png'
 
-const Header = () => {
-  const [showUserMenu, setShowUserMenu] = useState(false)
+const Header = ({ title = "Dashboard", isOpen, setIsOpen }) => {
+  const [showMenu, setShowMenu] = useState(false)
+  const menuRef = useRef(null)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setShowMenu(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [])
+
+  const handleLogout = async () => {
+    const response = await dispatch(logoutUser())
+    if (response.payload.status) {
+      localStorage.clear()
+      navigate("/login")
+    }
+  }
+
+  const userName = localStorage.getItem("userName")
+  const userEmail = localStorage.getItem("userEmail")
 
   return (
-    <header className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shadow-sm">
-      <div className="relative flex-1 max-w-xl">
-        <div className="relative">
-          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input
-            placeholder="Search bills..."
-            className="w-full border-2 border-slate-200 rounded-xl pl-11 pr-4 py-3 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none transition-all placeholder:text-slate-400"
-          />
-        </div>
+    <header className="bg-white border-b border-[oklch(55.7%_0.246_272_/_8%)] px-6 py-3.5 flex items-center justify-between shadow-[0_2px_12px_oklch(55.7%_0.246_272_/_5%)]">
+      <div className="lg:hidden flex items-center justify-between gap-3">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+          className="flex items-center justify-center size-10 rounded-[10px] text-[oklch(35%_0.03_264)] hover:bg-[oklch(55.7%_0.246_272_/_8%)] hover:text-[oklch(55.7%_0.246_272)] transition-all duration-200"
+        >
+          {isOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+
+        <NavLink to="/">
+          <div className="w-[100px]">
+            <img src={logo} className="w-full" alt="Billyzer" />
+          </div>
+        </NavLink>
+
       </div>
 
-      <div className="flex items-center gap-4 ml-6">
-        <div className="h-8 w-px bg-slate-200"></div>
+      <div className="hidden lg:block">
+        <h1 className="text-[22px] font-bold text-[oklch(20%_0.03_264)] leading-tight">
+          {title}
+        </h1>
+        <p className="text-[11px] text-[oklch(65%_0.02_264)] mt-0.5">
+          Welcome back {userName}
+        </p>
+      </div>
 
-        <div className="relative">
-          <button 
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className="flex items-center gap-3 hover:bg-slate-100 rounded-xl px-3 py-2 transition-all"
+      <div className="flex items-center gap-3">
+        <div className="h-7 w-px bg-[oklch(55.7%_0.246_272_/_10%)]" />
+
+        <div className="relative" ref={menuRef}>
+          <button
+            onClick={() => setShowMenu(!showMenu)}
+            className="flex items-center gap-2.5 px-3 py-2 rounded-[12px] hover:bg-[oklch(55.7%_0.246_272_/_6%)] transition-all duration-200 group"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-cyan-600 rounded-full flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-sm">B</span>
+            <div className="size-9 rounded-full bg-[oklch(55.7%_0.246_272)] shadow-[0_3px_10px_oklch(55.7%_0.246_272_/_30%)] flex items-center justify-center shrink-0">
+              <span className="text-white text-[13px] font-bold">{userName?.slice(0,1).toUpperCase()}</span>
             </div>
-            <div className="text-left hidden md:block">
-              <p className="font-semibold text-slate-900 text-sm">Bilal</p>
-              <p className="text-xs text-slate-500">Premium User</p>
+
+            <div className="text-left hidden sm:block">
+              <p className="text-[13px] font-semibold text-[oklch(20%_0.03_264)] leading-tight">
+                {userName || "User"}
+              </p>
+              <p className="text-[10px] text-[oklch(65%_0.02_264)]">Premium User</p>
             </div>
-            <FaChevronDown className={`text-slate-400 text-sm transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
+
+            <ChevronDown
+              size={14}
+              className={[
+                "text-[oklch(65%_0.02_264)] transition-transform duration-200",
+                showMenu ? "rotate-180" : "rotate-0",
+              ].join(" ")}
+            />
           </button>
 
-          {showUserMenu && (
-            <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl border border-slate-200 shadow-xl z-50">
-              <div className="p-4 border-b border-slate-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-cyan-600 rounded-full flex items-center justify-center shadow-md">
-                    <span className="text-white font-bold">B</span>
-                  </div>
-                  <div>
-                    <p className="font-bold text-slate-900">Bilal</p>
-                    <p className="text-sm text-slate-500">bilal@example.com</p>
-                  </div>
+          {showMenu && (
+            <div className="absolute right-0 mt-2 w-60 bg-white rounded-[16px] border border-[oklch(55.7%_0.246_272_/_10%)] shadow-[0_16px_48px_oklch(55.7%_0.246_272_/_12%),0_4px_12px_oklch(0%_0_0_/_6%)] z-50 overflow-hidden">
+
+              <div className="flex items-center gap-3 px-4 py-4 border-b border-[oklch(55.7%_0.246_272_/_8%)]">
+                <div className="size-11 rounded-full bg-[oklch(55.7%_0.246_272)] shadow-[0_4px_12px_oklch(55.7%_0.246_272_/_30%)] flex items-center justify-center shrink-0">
+                  <span className="text-white text-[14px] font-bold">{userName?.slice(0,1).toUpperCase()}</span>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[13px] font-bold text-[oklch(20%_0.03_264)] truncate">
+                    {userName || "User"}
+                  </p>
+                  <p className="text-[11px] text-[oklch(60%_0.02_264)] truncate">
+                    {userEmail || "user@example.com"}
+                  </p>
                 </div>
               </div>
 
               <div className="p-2">
-                <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-slate-100 text-slate-700 transition-colors">
-                  <FaUser className="text-slate-500" />
-                  <span className="font-medium text-sm">My Profile</span>
-                </button>
-                <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-slate-100 text-slate-700 transition-colors">
-                  <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span className="font-medium text-sm">Settings</span>
-                </button>
-                <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-slate-100 text-slate-700 transition-colors">
-                  <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="font-medium text-sm">Help & Support</span>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-[10px] text-[13px] font-medium text-[oklch(55%_0.22_25)] hover:bg-[oklch(60%_0.22_25_/_8%)] transition-all duration-200"
+                >
+                  <LogOut size={15} className="shrink-0" />
+                  Logout
                 </button>
               </div>
 
-              <div className="p-2 border-t border-slate-200">
-                <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-red-50 text-red-600 transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                  </svg>
-                  <span className="font-medium text-sm">Logout</span>
-                </button>
-              </div>
             </div>
           )}
         </div>
