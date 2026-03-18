@@ -3,6 +3,7 @@ import { useNavigate, useParams, NavLink } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { otpVerification } from "../redux/features/user/userAction"
 import { FiShield } from "react-icons/fi"
+import logo from '../assets/billyzer logo.png'
 
 function OtpVerification() {
   const { id }    = useParams()
@@ -52,14 +53,9 @@ function OtpVerification() {
         <div className="bg-white rounded-[24px] shadow-[0_24px_64px_oklch(55.7%_0.246_272_/_10%),0_4px_16px_oklch(0%_0_0_/_5%)] border border-[oklch(55.7%_0.246_272_/_8%)] px-8 py-10">
 
           <NavLink to="/" className="group flex items-center justify-center gap-2.5 mb-8 w-fit mx-auto">
-            <div className="size-9 rounded-[10px] bg-[oklch(55.7%_0.246_272)] shadow-[0_4px_12px_oklch(55.7%_0.246_272_/_35%)] flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
-              <svg className="size-5" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span className="font-bold text-[17px] tracking-tight text-[oklch(20%_0.03_264)]">
-              Money<span className="text-[oklch(55.7%_0.246_272)]">Saver</span>
-            </span>
+              <div className="w-[100px] md:w-[130px]">
+                <img src={logo} className="w-full" alt="" />
+              </div>
           </NavLink>
 
           <div className="flex justify-center mb-6">

@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { FiUser, FiMail, FiLock, FiCheck } from "react-icons/fi"
 import { useDispatch } from "react-redux"
 import { registerUser } from "../redux/features/user/userAction"
+import logo from '../assets/billyzer logo.png'
 
 const stats = [
   { value: "10K+", label: "Active Users" },
@@ -69,14 +70,9 @@ const Register = () => {
           <div className="hidden lg:flex flex-col">
 
             <NavLink to="/" className="group flex items-center gap-2.5 mb-10 w-fit">
-              <div className="size-9 rounded-[10px] bg-[oklch(55.7%_0.246_272)] shadow-[0_4px_12px_oklch(55.7%_0.246_272_/_35%)] flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
-                <svg className="size-5" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+              <div className="w-[100px] md:w-[130px]">
+                <img src={logo} className="w-full" alt="" />
               </div>
-              <span className="font-bold text-[17px] tracking-tight text-[oklch(20%_0.03_264)]">
-                Money<span className="text-[oklch(55.7%_0.246_272)]">Saver</span>
-              </span>
             </NavLink>
 
             <h1 className="text-[clamp(28px,3.5vw,42px)] font-bold leading-tight text-[oklch(20%_0.03_264)] mb-4">
